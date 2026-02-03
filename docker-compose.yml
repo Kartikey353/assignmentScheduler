@@ -1,0 +1,29 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq_scheduler
+    ports:
+      - "5672:5672"   # App connection
+      - "15672:15672" # Dashboard
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASSWORD: guest
+    networks:
+      - scheduler_network
+
+  worker:
+    build: .
+    command: python src/worker.py
+    depends_on:
+      - rabbitmq
+    environment:
+      # The worker only needs to know where RabbitMQ is
+      RABBITMQ_URL: amqp://guest:guest@rabbitmq/
+      # The worker only needs this if it writes results back to Atlas
+      MONGO_URL: ${MONGO_URL} 
+    networks:
+      - scheduler_network
+
+networks:
+  scheduler_network:
+    driver: bridge
