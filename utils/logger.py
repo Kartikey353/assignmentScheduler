@@ -1,7 +1,7 @@
 import logging
 
 
-def get_logger(name: str = "apna-vaidya") -> logging.Logger:
+def get_logger(name: str = "init") -> logging.Logger:
     logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)
 
@@ -13,3 +13,4 @@ def get_logger(name: str = "apna-vaidya") -> logging.Logger:
         logger.addHandler(handler)
 
     return logger
+
