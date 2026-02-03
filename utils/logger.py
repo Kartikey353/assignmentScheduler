@@ -1,7 +1,7 @@
 import logging
 
 
-def get_logger(name: str = "init") -> logging.Logger:
+def get_logger(name: str = "Assignement") -> logging.Logger:
     logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)
 
@@ -13,4 +13,5 @@ def get_logger(name: str = "init") -> logging.Logger:
         logger.addHandler(handler)
 
     return logger
+
 
